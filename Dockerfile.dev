@@ -1,0 +1,17 @@
+FROM node:18-bullseye
+
+RUN apt-get update && apt -y upgrade 
+
+RUN apt-get install -y dnsutils build-essential && apt-get clean
+
+RUN yarn global add pnpm
+
+RUN pnpm config set auto-install-peers true
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm i --frozen-lockfile
+
+COPY . .
