@@ -1,17 +1,23 @@
-FROM node:18-bullseye
+FROM node:20-bullseye-slim
 
-RUN apt-get update && apt -y upgrade 
+RUN echo "deb http://ftp.tw.debian.org/debian sid main contrib" >> /etc/apt/sources.list
 
-RUN apt-get install -y dnsutils build-essential && apt-get clean
+RUN apt-get update \
+    && apt-get install -y dnsutils build-essential procps \
+    && apt-get clean
 
-RUN yarn global add pnpm
+ENV PNPM_HOME="/pnpm"
+
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN npm i -g pnpm 
 
 RUN pnpm config set auto-install-peers true
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json /app
 
-RUN pnpm i --frozen-lockfile
+COPY pnpm-lock.yaml /app
 
-COPY . .
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile
