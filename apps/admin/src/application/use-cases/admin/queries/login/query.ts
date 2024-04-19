@@ -1,6 +1,9 @@
 export class LoginQuery {
-  constructor(
-    public readonly email: string,
-    public readonly password: string,
-  ) {}
+  readonly email: string;
+  readonly password: string;
+
+  constructor(props: { email: string; password: string }) {
+    this.email = props.email;
+    this.password = props.password;
+  }
 }
