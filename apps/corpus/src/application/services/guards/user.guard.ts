@@ -9,7 +9,6 @@ import { UserRepository } from '@memphis/corpus/infrastructure/repositories';
 import { CookieService } from '@memphis/cookie';
 import Definition from '@memphis/definition';
 import { JwtService } from '@memphis/jwt';
-import { EventPublisher } from '@nestjs/cqrs';
 
 @Injectable()
 export class UserGuard implements CanActivate {
@@ -17,7 +16,6 @@ export class UserGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly userRepository: UserRepository,
     private readonly cookieService: CookieService,
-    private readonly eventPublisher: EventPublisher,
   ) {}
 
   async canActivate(context: ExecutionContext) {
@@ -48,7 +46,7 @@ export class UserGuard implements CanActivate {
 
     request.context = {
       ...request.context,
-      getUser: () => this.eventPublisher.mergeObjectContext(userEntity),
+      getUser: () => userEntity,
     };
     return true;
   }
