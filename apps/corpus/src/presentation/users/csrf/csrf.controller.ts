@@ -3,7 +3,7 @@ import { Controller, Get, Req, Res } from '@nestjs/common';
 import { CsrfTokenService, CookieService } from '@memphis/cookie';
 import Definition from '@memphis/definition';
 
-@Controller('_ping')
+@Controller('user/_ping')
 class CsrfController {
   constructor(
     private readonly csrfTokenService: CsrfTokenService,
