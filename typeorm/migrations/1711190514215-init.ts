@@ -5,7 +5,7 @@ export class Init1711190514215 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "users" ("id" character(25) NOT NULL, "first_name" character varying NOT NULL, "last_name" character varying NOT NULL, "email" text NOT NULL, "refresh_token" text NOT NULL, "password" character varying NOT NULL, "disabled" boolean NOT NULL DEFAULT false, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now())`,
+      `CREATE TABLE "users" ("id" character(25) NOT NULL, "first_name" character varying NOT NULL, "last_name" character varying NOT NULL, "email" text NOT NULL, "picture" text NOT NULL, "refresh_token" text NOT NULL, "disabled" boolean NOT NULL DEFAULT false, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now())`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_c9b5b525a96ddc2c5647d7f7fa" ON "users" ("created_at") `,

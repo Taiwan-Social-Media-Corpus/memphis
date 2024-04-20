@@ -6,6 +6,8 @@ const configSchema = z
   .object({
     // system
     NODE_ENV: z.enum(['test', 'development', 'staging', 'production']),
+    CLIENT_URL: z.string().url().min(1),
+    SERVER_URL: z.string().url().min(1),
     // secret
     ADMIN_TOKEN: z.string().min(1),
     JWK_PUBLIC_X: z.string().min(1),
@@ -26,9 +28,13 @@ const configSchema = z
     REDIS_PASSWORD: z.string().min(1),
     RABBITMQ_DEFAULT_USER: z.string().min(1),
     RABBITMQ_DEFAULT_PASSWORD: z.string().min(1),
+    GOOGLE_OAUTH_CLIENT_ID: z.string().min(1),
+    GOOGLE_OAUTH_CLIENT_SECRET: z.string().min(1),
   })
   .transform((env) => ({
     nodeEnv: env.NODE_ENV,
+    clientURL: env.CLIENT_URL,
+    serverURL: env.SERVER_URL,
     adminToken: env.ADMIN_TOKEN,
     jwkPublicX: env.JWK_PUBLIC_X,
     jwkPrivateD: env.JWK_PRIVATE_D,
@@ -43,6 +49,8 @@ const configSchema = z
     redisHost: env.REDIS_HOST,
     redisPort: env.REDIS_PORT,
     redisPassword: env.REDIS_PASSWORD,
+    googleOAuthClientId: env.GOOGLE_OAUTH_CLIENT_ID,
+    googleOAuthClientSecret: env.GOOGLE_OAUTH_CLIENT_SECRET,
   }));
 
 export type Config = z.infer<typeof configSchema>;

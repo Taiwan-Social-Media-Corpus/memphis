@@ -1,4 +1,3 @@
-import { IsEmail } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -25,29 +24,9 @@ abstract class DefaultEntity extends TimeEntity {
   id!: string;
 }
 
-abstract class PersonEntity extends TimeEntity {
+abstract class DefaultCUIDEntity extends TimeEntity {
   @CUIDColumn({ primary: true })
   id!: string;
-
-  @Column('varchar', { name: 'first_name' })
-  firstName!: string;
-
-  @Column('varchar', { name: 'last_name' })
-  lastName!: string;
-
-  @Index()
-  @Column('text', { unique: true })
-  @IsEmail()
-  email!: string;
-
-  @Column('text', { name: 'refresh_token' })
-  refreshToken!: string;
-
-  @Column('varchar')
-  password!: string;
-
-  @Column('boolean', { default: false })
-  disabled!: boolean;
 
   @BeforeInsert()
   initPrimaryKey() {
@@ -57,4 +36,4 @@ abstract class PersonEntity extends TimeEntity {
   }
 }
 
-export { CreateTimeEntity, TimeEntity, DefaultEntity, PersonEntity };
+export { CreateTimeEntity, TimeEntity, DefaultEntity, DefaultCUIDEntity };
