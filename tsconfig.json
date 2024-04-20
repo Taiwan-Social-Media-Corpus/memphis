@@ -17,9 +17,20 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@libs/pg": ["libs/pg/src"],
-      "@libs/pg/*": ["libs/pg/src/*"],
-      "@rocket/config": ["libs/config/index.ts"]
+      "@memphis/admin/*": ["apps/admin/src/*"],
+      "@memphis/corpus/*": ["apps/corpus/src/*"],
+      "@memphis/config": ["libs/config/index.ts"],
+      "@memphis/cookie": ["libs/cookie/src"],
+      "@memphis/cookie/*": ["libs/cookie/src/*"],
+      "@memphis/definition": ["libs/definition/index.ts"],
+      "@memphis/domain/*": ["libs/domain/*"],
+      "@memphis/dto/*": ["libs/dto/*"],
+      "@memphis/errors/*": ["libs/errors/*"],
+      "@memphis/jwt": ["libs/jwt/src"],
+      "@memphis/jwt/*": ["libs/jwt/src/*"],
+      "@memphis/postgres": ["libs/postgres/src"],
+      "@memphis/postgres/*": ["libs/postgres/src/*"],
+      "@memphis/result": ["libs/result/index.ts"],
     }
   }
 }
