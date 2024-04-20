@@ -3,12 +3,14 @@
 DOCKER_COMPOSE_FILE=""
 MIGRATE_ACTION=""
 MIGRATION_NAME=""
+SERVICE_NAME=""
 
-while getopts "f:a:n:" flag; do
+while getopts "f:a:n:s:" flag; do
     case "${flag}" in
         a) MIGRATE_ACTION=${OPTARG};;
         f) DOCKER_COMPOSE_FILE=${OPTARG};;
         n) MIGRATION_NAME=${OPTARG};;
+        s) SERVICE_NAME=${OPTARG};;
         \?) echo "Invalid option: -$OPTARG" >&2; exit 1;;
         :) echo "Option -$OPTARG requires an argument." >&2; exit 1;;
     esac
@@ -16,7 +18,7 @@ done
 
 if [ -z "$DOCKER_COMPOSE_FILE" ] || [ -z "$MIGRATE_ACTION" ]; then
     echo "Error: Both -f (docker compose file path) and -a (action) options are required." >&2
-    echo "Usage: $0 -f <docker_compose_file_path> -a <migrate_action> [-n <migration_name>]" >&2
+    echo "Usage: $0 -f <docker_compose_file_path> -s <docker_service_namespace> -a <migrate_action> [-n <migration_name>]" >&2
     exit 1
 fi
 
@@ -36,9 +38,9 @@ done
 ENV_EXPORTS="export POSTGRES_HOST=\$(dig +short postgres) && export REDIS_HOST=\$(dig +short redis)"
 
 if [ "$MIGRATE_ACTION" == "generate" ]; then 
-    docker compose -f $DOCKER_COMPOSE_FILE exec admin /bin/bash -c "$ENV_EXPORTS && pnpm run typeorm migration:$MIGRATE_ACTION ./typeorm/migrations/$MIGRATION_NAME"
+    docker compose -f $DOCKER_COMPOSE_FILE exec $SERVICE_NAME /bin/bash -c "$ENV_EXPORTS && pnpm run typeorm migration:$MIGRATE_ACTION ./typeorm/migrations/$MIGRATION_NAME"
 elif [ "$MIGRATE_ACTION" == "run" ]; then
-    docker compose -f $DOCKER_COMPOSE_FILE exec admin /bin/bash -c "$ENV_EXPORTS && pnpm run typeorm migration:$MIGRATE_ACTION"
+    docker compose -f $DOCKER_COMPOSE_FILE exec $SERVICE_NAME /bin/bash -c "$ENV_EXPORTS && pnpm run typeorm migration:$MIGRATE_ACTION"
 else
     echo "Invalid action specified. Please use 'establish' or 'reset'."
     exit 1
