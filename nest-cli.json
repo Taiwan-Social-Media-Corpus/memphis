@@ -14,7 +14,7 @@
       "type": "application",
       "root": "apps/corpus",
       "entryFile": "main",
-      "sourceRoot": "apps/corpus/src",
+      "sourceRoot": "apps/corpus/src/infrastructure",
       "compilerOptions": {
         "tsConfigPath": "apps/corpus/tsconfig.app.json"
       }
@@ -23,9 +23,36 @@
       "type": "application",
       "root": "apps/admin",
       "entryFile": "main",
-      "sourceRoot": "apps/admin/src",
+      "sourceRoot": "apps/admin/src/infrastructure",
       "compilerOptions": {
         "tsConfigPath": "apps/admin/tsconfig.app.json"
+      }
+    },
+    "postgres": {
+      "type": "library",
+      "root": "libs/postgres",
+      "entryFile": "index",
+      "sourceRoot": "libs/postgres/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/postgres/tsconfig.lib.json"
+      }
+    },
+    "jwt": {
+      "type": "library",
+      "root": "libs/jwt",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt/tsconfig.lib.json"
+      }
+    },
+    "cookie": {
+      "type": "library",
+      "root": "libs/cookie",
+      "entryFile": "index",
+      "sourceRoot": "libs/cookie/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/cookie/tsconfig.lib.json"
       }
     }
   }

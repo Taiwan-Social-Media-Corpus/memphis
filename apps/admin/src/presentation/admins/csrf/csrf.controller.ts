@@ -1,19 +1,25 @@
-import { Controller, Get, Res } from '@nestjs/common';
-import { CsrfTokenService, CsrfCookieService } from '@memphis/cookie';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { Controller, Get, Req, Res } from '@nestjs/common';
+import { CsrfTokenService, CookieService } from '@memphis/cookie';
+import Definition from '@memphis/definition';
 
 @Controller('_ping')
 class CsrfController {
   constructor(
     private readonly csrfTokenService: CsrfTokenService,
-    private readonly csrfCookieService: CsrfCookieService,
+    private readonly cookieService: CookieService,
   ) {}
   @Get()
-  async signUp(@Res() res: Response) {
+  async signUp(@Req() req: Request, @Res() res: Response) {
     const csrfToken = this.csrfTokenService.generate();
     const hmac = this.csrfTokenService.hmac(csrfToken);
     res.header('X-Csrf-Token', hmac);
-    this.csrfCookieService.set(csrfToken, res);
+
+    const cookies = req.context.getCookies();
+    this.cookieService.set(cookies, Definition.Cookies.csrfToken, csrfToken, {
+      expires: undefined,
+      sameSite: undefined,
+    });
     return res.status(204).json();
   }
 }
