@@ -31,6 +31,8 @@
       "@memphis/postgres": ["libs/postgres/src"],
       "@memphis/postgres/*": ["libs/postgres/src/*"],
       "@memphis/result": ["libs/result/index.ts"],
+      "@memphis/oauth": ["libs/oauth/src"],
+      "@memphis/oauth/*": ["libs/oauth/src/*"]
     }
   }
 }
