@@ -30,9 +30,8 @@ class UserMapper {
   }
 
   public static toDto(userEntity: UserAggregate) {
-    const { id, firstName, lastName, email, picture } = userEntity;
+    const { firstName, lastName, email, picture } = userEntity;
     return {
-      id,
       firstName,
       lastName,
       picture,
