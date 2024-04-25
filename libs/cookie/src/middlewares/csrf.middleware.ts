@@ -24,7 +24,7 @@ export class CsrfMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const ignoredMethods = new Set(['GET', 'HEAD', 'OPTIONS']);
     if (ignoredMethods.has(req.method)) {
-      next();
+      return next();
     }
 
     const isValid = this.verify(req);
