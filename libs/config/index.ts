@@ -8,6 +8,7 @@ const configSchema = z
     NODE_ENV: z.enum(['test', 'development', 'staging', 'production']),
     CLIENT_URL: z.string().url().min(1),
     SERVER_URL: z.string().url().min(1),
+    CORPUS_URL: z.string().url().min(1),
     // secret
     ADMIN_TOKEN: z.string().min(1),
     JWK_PUBLIC_X: z.string().min(1),
@@ -35,6 +36,7 @@ const configSchema = z
     nodeEnv: env.NODE_ENV,
     clientURL: env.CLIENT_URL,
     serverURL: env.SERVER_URL,
+    corpusURL: env.CORPUS_URL,
     adminToken: env.ADMIN_TOKEN,
     jwkPublicX: env.JWK_PUBLIC_X,
     jwkPrivateD: env.JWK_PRIVATE_D,
